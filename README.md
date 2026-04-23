@@ -33,7 +33,13 @@ The goal is to compare their learning performance and stability through reward c
 - **Hyperparameters**
 
   ```python
-  gamma, lr, eps_clip, episodes, hidden_size, num_epochs
+  gamma = 0.99
+  lr = 1e-3
+  eps_clip = 0.2
+  episodes = 1000
+  hidden_size = 64
+  num_epochs = 4
+  seed = 42
   ```
 
 - **Policy Network (`Policy` class)**
@@ -66,6 +72,8 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+There is no external dataset/model download is needed because the code uses built-in Gymnasium environments
+
 Run the script:
 
 ```bash
@@ -74,7 +82,16 @@ python main.py
 
 ## Code Attribution
 
-- Lines 22–29 (Policy class): Adapted from the FeedForwardNN class in Eric Yang Yu's PPO-for-Beginners. I simplified it from a three-layer network to a two-layer network and integrated it with Categorical distributions.
-- Lines 32–40 (compute_returns): Written by me.
-- Lines 43–108 (train function): Written by me, but logic for the PPO clipping (Lines 86–94) and ratio calculation (Line 88) was adapted from the implementation logic found in Eric Yang Yu's ppo.py.
-- Lines 111–137 (Plotting/Main): Written by me.
+- Lines 25–33 (Policy class): Adapted from the FeedForwardNN class in [Eric Yang Yu's network.py](https://github.com/ericyangyu/PPO-for-Beginners/blob/master/network.py). I simplified it from a three-layer network to a two-layer network and integrated it with Categorical distributions.
+- Lines 36–44 (compute_returns): Written by me.
+- Lines 47–121 (train function): Written by me, but logic for the PPO clipping (Lines 86–94) and ratio calculation (Line 88) was adapted from the implementation logic found in [Eric Yang Yu's ppo.py](https://github.com/ericyangyu/PPO-for-Beginners/blob/master/ppo.py).
+- Lines 124–151 (Plotting/Main): Written by me.
+
+## Results
+
+![Comparison of PPO and REINFORCE on CartPole-v1](results/comparison_cartpolev1.png)
+![Comparison of PPO and REINFORCE on Acrobot-v1](results/comparison_acrobotv1.png)
+
+## LLM Acknowledgment
+
+ChatGPT was used to debug and optimize the training loop, particularly in implementing the PPO clipping mechanism and ensuring the correct calculation of the advantage estimates. The overall structure and logic of the code were designed by me, but ChatGPT provided guidance on best practices for PPO implementation and helped identify potential issues in the reward normalization process.
